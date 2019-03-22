@@ -1,0 +1,74 @@
+/* UW Public MATERIAL..  */
+/* UWudpscan v0.1 */
+
+/*
+ *   --=[UWudpscan]=--
+ *
+ * Uberwall udp scanner is a multithreaded udp port scanner. 
+ * 
+ * This tool was coded on a gentoo box... 
+ * If there are some platforms on which it's not working
+ * I'm here to try giving support...
+ * Actually I'll port the code for BSD in the next few time.
+ *
+ * Greatz to csk, khorben, sead and friends.
+ * A big thanks to csk who forced me to write this and kick my ass
+ * to finish it this year :)
+ *
+ * Coded by coma <coma@uberwall.org>
+ * UberWall security team
+ * Feedbacks welcomes
+ *
+ *   --=[ Copyright ]=--
+ *
+ * Copyright (c) Uberwall 2003-2005
+ * All rights reserved. All software redistribution and use
+ * in source and binary forms, with or without modification, are
+ * permitted provided that this copyright notice is retained.
+ * All documentation belong to their respective authors.
+ *
+ *   --=[ Disclaimer ]=--
+ *
+ * We, authors gathered in the group "UberWall", can not be held
+ * responsible for any use of the content available on its site,
+ * "www.uberwall.org".
+ *
+ * Indeed, this group only aims to share knowledge and research
+ * about computer security, and some elements presented may be
+ * misused by malicious people.
+ *
+ * We warn again that anyone is responsible for his own behaviour,
+ * and that unauthorized access to computer systems is illegal,
+ * as well as any other activity assimilated to "cracking".
+ *
+ * We have absolutely no intention to break the law concerning any
+ * resource or work detailed here.
+ *
+ *   --=[ Enjoy ]=--
+ */
+
+w00t UWudpscan # uname -rs
+Linux 2.6.13-gentoo-r3
+
+w00t UWudpscan-xmas-release # make clean && make
+rm -f *.o UWudpscan
+cc -W -Wall -ansi -I /usr/local/include -c UWudpscan.c -o UWudpscan.o
+cc -W -Wall -ansi -I /usr/local/include -c send.c -o send.o
+cc -W -Wall -ansi -I /usr/local/include -c res.c -o res.o
+cc -W -Wall -ansi -I /usr/local/include -c recv.c -o recv.o
+cc -W -Wall -ansi -I /usr/local/include -c resolv.c -o resolv.o
+cc UWudpscan.o send.o res.o recv.o resolv.o -o UWudpscan -lpthread -Wall
+
+****** ./UWudpscan UberWall UDP scanner ******
+****** c0ded by coma <www.uberwall.org> ******
+Usage: ./UWudpscan -h host -l lowerport -u higherport [-t timeout] [-n threadnumber]
+        -l      Lowerport
+        -u      Higherport
+        -h      Hostname
+        -t      Timeout
+        -n      Number of threads
+        -f      Save to file
+
+Note for the scanning options:
+
+If you change the parallel threads ( e.g. -t 20 or -t 30...) please think also to change the timeout value.
